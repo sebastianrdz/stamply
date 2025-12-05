@@ -1,11 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { supabase } from '@/lib/supabase/client';
+import { createServerClient } from '@/lib/supabase/server';
 import { generatePassSerial } from '@/lib/utils';
 import { generateLoyaltyPass, getPassContentType, getPassFilename } from '@/lib/passkit/service';
 import { CreateCustomerRequest } from '@/types/database';
 
 export async function POST(request: NextRequest) {
   try {
+    const supabase = await createServerClient();
+
     const body: CreateCustomerRequest = await request.json();
     const { publicId, firstName, email } = body;
 
