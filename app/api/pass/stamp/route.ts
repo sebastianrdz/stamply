@@ -68,16 +68,16 @@ export async function POST(request: NextRequest) {
     }
 
     // Increment stamps
-    const newStamps = (loyaltyPass as any).current_stamps + 1;
-    const isUnlocked = newStamps >= (loyaltyPass as any).loyalty_program.stamps_required;
+    const newStamps: number = (loyaltyPass as any).current_stamps + 1;
+    const isUnlocked: boolean = newStamps >= (loyaltyPass as any).loyalty_program.stamps_required;
 
     // Update loyalty pass
-    const { data: updatedPass, error: updateError } = await supabase
+    const { data: updatedPass, error: updateError } = await (supabase
       .from('loyalty_passes')
-      .update({
+      .update as any)({
         current_stamps: newStamps,
         reward_unlocked: isUnlocked,
-      } as any)
+      })
       .eq('id', (loyaltyPass as any).id)
       .select(`
         *,

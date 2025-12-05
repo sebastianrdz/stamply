@@ -19,7 +19,7 @@ export async function createServerClient() {
       detectSessionInUrl: false,
       storage: {
         getItem: (key: string) => {
-          return cookieStore.get(key)?.value;
+          return cookieStore.get(key)?.value ?? null;
         },
         setItem: (key: string, value: string) => {
           cookieStore.set(key, value);
