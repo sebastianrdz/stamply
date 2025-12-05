@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { createServerClient } from '@/lib/supabase/server';
 import { generatePassSerial } from '@/lib/utils';
 import { generateLoyaltyPass, getPassContentType, getPassFilename } from '@/lib/passkit/service';
-import { CreateCustomerRequest } from '@/types/database';
+import { CreateCustomerRequest, LoyaltyProgram, Merchant, Customer, LoyaltyPass } from '@/types/database';
 
 export async function POST(request: NextRequest) {
   try {
@@ -22,7 +22,7 @@ export async function POST(request: NextRequest) {
     const { data: program, error: programError } = await supabase
       .from('loyalty_programs')
       .select('*, merchants(*)')
-      .eq('public_id', publicId)
+      .eq('public_id', publicId as any)
       .single();
 
     if (programError || !program) {
@@ -36,10 +36,10 @@ export async function POST(request: NextRequest) {
     const { data: customer, error: customerError } = await supabase
       .from('customers')
       .insert({
-        loyalty_program_id: program.id,
+        loyalty_program_id: (program as any).id,
         first_name: firstName,
         email: email || null,
-      })
+      } as any)
       .select()
       .single();
 
@@ -58,12 +58,12 @@ export async function POST(request: NextRequest) {
     const { data: loyaltyPass, error: passError } = await supabase
       .from('loyalty_passes')
       .insert({
-        customer_id: customer.id,
-        loyalty_program_id: program.id,
+        customer_id: (customer as any).id,
+        loyalty_program_id: (program as any).id,
         pass_serial: passSerial,
         current_stamps: 0,
         reward_unlocked: false,
-      })
+      } as any)
       .select()
       .single();
 
@@ -78,14 +78,14 @@ export async function POST(request: NextRequest) {
     // Generate the pass file
     try {
       const passBuffer = await generateLoyaltyPass({
-        customer,
-        loyaltyPass,
-        merchant: program.merchants,
-        loyaltyProgram: program,
+        customer: customer as any as Customer,
+        loyaltyPass: loyaltyPass as any as LoyaltyPass,
+        merchant: (program as any).merchants as Merchant,
+        loyaltyProgram: program as any as LoyaltyProgram,
       });
 
       // Return the pass file
-      return new NextResponse(passBuffer, {
+      return new NextResponse(passBuffer as any, {
         status: 200,
         headers: {
           'Content-Type': getPassContentType(),

@@ -34,7 +34,7 @@ export async function POST(request: NextRequest) {
         customer:customers(*),
         loyalty_program:loyalty_programs(*, merchant:merchants(*))
       `)
-      .eq('pass_serial', passSerial)
+      .eq('pass_serial', passSerial as any)
       .single();
 
     if (passError || !loyaltyPass) {
@@ -48,8 +48,8 @@ export async function POST(request: NextRequest) {
     const { data: merchant, error: merchantError } = await supabase
       .from('merchants')
       .select('*')
-      .eq('id', loyaltyPass.loyalty_program.merchant_id)
-      .eq('owner_user_id', user.id)
+      .eq('id', (loyaltyPass as any).loyalty_program.merchant_id)
+      .eq('owner_user_id', user.id as any)
       .single();
 
     if (merchantError || !merchant) {
@@ -60,7 +60,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Check if already at max stamps
-    if (loyaltyPass.current_stamps >= loyaltyPass.loyalty_program.stamps_required) {
+    if ((loyaltyPass as any).current_stamps >= (loyaltyPass as any).loyalty_program.stamps_required) {
       return NextResponse.json(
         { success: false, error: 'Card already complete' },
         { status: 400 }
@@ -68,8 +68,8 @@ export async function POST(request: NextRequest) {
     }
 
     // Increment stamps
-    const newStamps = loyaltyPass.current_stamps + 1;
-    const isUnlocked = newStamps >= loyaltyPass.loyalty_program.stamps_required;
+    const newStamps = (loyaltyPass as any).current_stamps + 1;
+    const isUnlocked = newStamps >= (loyaltyPass as any).loyalty_program.stamps_required;
 
     // Update loyalty pass
     const { data: updatedPass, error: updateError } = await supabase
@@ -77,8 +77,8 @@ export async function POST(request: NextRequest) {
       .update({
         current_stamps: newStamps,
         reward_unlocked: isUnlocked,
-      })
-      .eq('id', loyaltyPass.id)
+      } as any)
+      .eq('id', (loyaltyPass as any).id)
       .select(`
         *,
         customer:customers(*),
@@ -98,10 +98,10 @@ export async function POST(request: NextRequest) {
     const { error: eventError } = await supabase
       .from('stamp_events')
       .insert({
-        loyalty_pass_id: loyaltyPass.id,
+        loyalty_pass_id: (loyaltyPass as any).id,
         location_id: null, // TODO: Add location support
         delta: 1,
-      });
+      } as any);
 
     if (eventError) {
       console.error('Event creation error:', eventError);
