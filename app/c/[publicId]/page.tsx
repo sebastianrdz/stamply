@@ -66,8 +66,15 @@ export default function CustomerSignupPage() {
       });
 
       if (!response.ok) {
-        const data = await response.json();
-        throw new Error(data.error || "Failed to create card");
+        let errorMessage = "Failed to create card";
+        try {
+          const data = await response.json();
+          errorMessage = data.error || errorMessage;
+        } catch (e) {
+          // If response is not JSON, use status text
+          errorMessage = response.statusText || errorMessage;
+        }
+        throw new Error(errorMessage);
       }
 
       // Download the pass file
@@ -87,6 +94,7 @@ export default function CustomerSignupPage() {
 
       setSuccess(true);
     } catch (err: any) {
+      console.error("Customer creation error:", err);
       setError(err.message || "Failed to create loyalty card");
     } finally {
       setSubmitting(false);

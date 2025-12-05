@@ -101,53 +101,65 @@ ALTER TABLE stamp_events ENABLE ROW LEVEL SECURITY;
 -- Merchants: Users can only see/edit their own merchant data
 CREATE POLICY "Users can view their own merchant data"
   ON merchants FOR SELECT
+  TO public
   USING (auth.uid() = owner_user_id);
 
 CREATE POLICY "Users can insert their own merchant data"
   ON merchants FOR INSERT
+  TO public
   WITH CHECK (auth.uid() = owner_user_id);
 
 CREATE POLICY "Users can update their own merchant data"
   ON merchants FOR UPDATE
+  TO public
   USING (auth.uid() = owner_user_id);
 
 -- Locations: Merchants can manage their own locations
 CREATE POLICY "Merchants can view their own locations"
   ON locations FOR SELECT
+  TO public
   USING (merchant_id IN (SELECT id FROM merchants WHERE owner_user_id = auth.uid()));
 
 CREATE POLICY "Merchants can insert their own locations"
   ON locations FOR INSERT
+  TO public
   WITH CHECK (merchant_id IN (SELECT id FROM merchants WHERE owner_user_id = auth.uid()));
 
 CREATE POLICY "Merchants can update their own locations"
   ON locations FOR UPDATE
+  TO public
   USING (merchant_id IN (SELECT id FROM merchants WHERE owner_user_id = auth.uid()));
 
 -- Loyalty programs: Merchants can manage their own programs, public can read by public_id
 CREATE POLICY "Merchants can view their own loyalty programs"
   ON loyalty_programs FOR SELECT
+  TO public
   USING (merchant_id IN (SELECT id FROM merchants WHERE owner_user_id = auth.uid()));
 
 CREATE POLICY "Anyone can view loyalty programs by public_id"
   ON loyalty_programs FOR SELECT
+  TO public
   USING (true);
 
 CREATE POLICY "Merchants can insert their own loyalty programs"
   ON loyalty_programs FOR INSERT
+  TO public
   WITH CHECK (merchant_id IN (SELECT id FROM merchants WHERE owner_user_id = auth.uid()));
 
 CREATE POLICY "Merchants can update their own loyalty programs"
   ON loyalty_programs FOR UPDATE
+  TO public
   USING (merchant_id IN (SELECT id FROM merchants WHERE owner_user_id = auth.uid()));
 
 -- Customers: Public can insert, merchants can view their program's customers
 CREATE POLICY "Anyone can create customers"
   ON customers FOR INSERT
+  TO public
   WITH CHECK (true);
 
 CREATE POLICY "Merchants can view their program customers"
   ON customers FOR SELECT
+  TO public
   USING (loyalty_program_id IN (
     SELECT id FROM loyalty_programs WHERE merchant_id IN (
       SELECT id FROM merchants WHERE owner_user_id = auth.uid()
@@ -157,10 +169,12 @@ CREATE POLICY "Merchants can view their program customers"
 -- Loyalty passes: Similar to customers
 CREATE POLICY "Anyone can create loyalty passes"
   ON loyalty_passes FOR INSERT
+  TO public
   WITH CHECK (true);
 
 CREATE POLICY "Merchants can view their program passes"
   ON loyalty_passes FOR SELECT
+  TO public
   USING (loyalty_program_id IN (
     SELECT id FROM loyalty_programs WHERE merchant_id IN (
       SELECT id FROM merchants WHERE owner_user_id = auth.uid()
@@ -169,6 +183,7 @@ CREATE POLICY "Merchants can view their program passes"
 
 CREATE POLICY "Merchants can update their program passes"
   ON loyalty_passes FOR UPDATE
+  TO public
   USING (loyalty_program_id IN (
     SELECT id FROM loyalty_programs WHERE merchant_id IN (
       SELECT id FROM merchants WHERE owner_user_id = auth.uid()
@@ -178,6 +193,7 @@ CREATE POLICY "Merchants can update their program passes"
 -- Stamp events: Merchants can view and create for their programs
 CREATE POLICY "Merchants can view their program stamp events"
   ON stamp_events FOR SELECT
+  TO public
   USING (loyalty_pass_id IN (
     SELECT id FROM loyalty_passes WHERE loyalty_program_id IN (
       SELECT id FROM loyalty_programs WHERE merchant_id IN (
@@ -188,6 +204,7 @@ CREATE POLICY "Merchants can view their program stamp events"
 
 CREATE POLICY "Merchants can create stamp events for their programs"
   ON stamp_events FOR INSERT
+  TO public
   WITH CHECK (loyalty_pass_id IN (
     SELECT id FROM loyalty_passes WHERE loyalty_program_id IN (
       SELECT id FROM loyalty_programs WHERE merchant_id IN (

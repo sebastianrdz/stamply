@@ -1,17 +1,21 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createServerClient } from '@/lib/supabase/server';
+import { createPublicServerClient } from '@/lib/supabase/public-server';
 import { generatePassSerial } from '@/lib/utils';
 import { generateLoyaltyPass, getPassContentType, getPassFilename } from '@/lib/passkit/service';
 import { CreateCustomerRequest, LoyaltyProgram, Merchant, Customer, LoyaltyPass } from '@/types/database';
 
 export async function POST(request: NextRequest) {
   try {
-    const supabase = await createServerClient();
+    console.log('Customer creation API called');
+    const supabase = createPublicServerClient();
+    console.log('Supabase client created');
 
     const body: CreateCustomerRequest = await request.json();
     const { publicId, firstName, email } = body;
+    console.log('Request body:', { publicId, firstName, email: email ? '***' : undefined });
 
     if (!publicId || !firstName) {
+      console.error('Missing required fields');
       return NextResponse.json(
         { success: false, error: 'Missing required fields' },
         { status: 400 }
@@ -19,6 +23,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Find the loyalty program by public ID
+    console.log('Looking up loyalty program with publicId:', publicId);
     const { data: program, error: programError } = await supabase
       .from('loyalty_programs')
       .select('*, merchants(*)')
@@ -26,13 +31,16 @@ export async function POST(request: NextRequest) {
       .single();
 
     if (programError || !program) {
+      console.error('Program lookup error:', programError);
       return NextResponse.json(
-        { success: false, error: 'Loyalty program not found' },
+        { success: false, error: programError?.message || 'Loyalty program not found' },
         { status: 404 }
       );
     }
+    console.log('Program found:', (program as any).id);
 
     // Create customer
+    console.log('Creating customer...');
     const { data: customer, error: customerError } = await supabase
       .from('customers')
       .insert({
@@ -46,15 +54,18 @@ export async function POST(request: NextRequest) {
     if (customerError || !customer) {
       console.error('Customer creation error:', customerError);
       return NextResponse.json(
-        { success: false, error: 'Failed to create customer' },
+        { success: false, error: customerError?.message || 'Failed to create customer' },
         { status: 500 }
       );
     }
+    console.log('Customer created:', (customer as any).id);
 
     // Generate unique pass serial
     const passSerial = generatePassSerial();
+    console.log('Generated pass serial:', passSerial);
 
     // Create loyalty pass
+    console.log('Creating loyalty pass...');
     const { data: loyaltyPass, error: passError } = await supabase
       .from('loyalty_passes')
       .insert({
@@ -70,13 +81,15 @@ export async function POST(request: NextRequest) {
     if (passError || !loyaltyPass) {
       console.error('Loyalty pass creation error:', passError);
       return NextResponse.json(
-        { success: false, error: 'Failed to create loyalty pass' },
+        { success: false, error: passError?.message || 'Failed to create loyalty pass' },
         { status: 500 }
       );
     }
+    console.log('Loyalty pass created:', (loyaltyPass as any).id);
 
     // Generate the pass file
     try {
+      console.log('Generating pass file...');
       const passBuffer = await generateLoyaltyPass({
         customer: customer as any as Customer,
         loyaltyPass: loyaltyPass as any as LoyaltyPass,
@@ -84,6 +97,7 @@ export async function POST(request: NextRequest) {
         loyaltyProgram: program as any as LoyaltyProgram,
       });
 
+      console.log('Pass file generated successfully');
       // Return the pass file
       return new NextResponse(passBuffer as any, {
         status: 200,
@@ -95,7 +109,7 @@ export async function POST(request: NextRequest) {
     } catch (passGenError) {
       console.error('Pass generation error:', passGenError);
       return NextResponse.json(
-        { success: false, error: 'Failed to generate pass file' },
+        { success: false, error: `Failed to generate pass file: ${(passGenError as any).message}` },
         { status: 500 }
       );
     }

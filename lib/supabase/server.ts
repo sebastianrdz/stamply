@@ -14,18 +14,28 @@ export async function createServerClient() {
 
   return createClient<Database>(supabaseUrl, supabaseAnonKey, {
     auth: {
-      persistSession: true,
-      autoRefreshToken: true,
+      persistSession: false,
+      autoRefreshToken: false,
       detectSessionInUrl: false,
       storage: {
         getItem: (key: string) => {
           return cookieStore.get(key)?.value ?? null;
         },
         setItem: (key: string, value: string) => {
-          cookieStore.set(key, value);
+          try {
+            cookieStore.set(key, value);
+          } catch (error) {
+            // Ignore cookie setting errors in read-only contexts
+            console.warn('Failed to set cookie:', key);
+          }
         },
         removeItem: (key: string) => {
-          cookieStore.delete(key);
+          try {
+            cookieStore.delete(key);
+          } catch (error) {
+            // Ignore cookie deletion errors in read-only contexts
+            console.warn('Failed to delete cookie:', key);
+          }
         },
       },
     },
