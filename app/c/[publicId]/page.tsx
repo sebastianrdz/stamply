@@ -37,8 +37,8 @@ export default function CustomerSignupPage() {
         return;
       }
 
-      setProgram(programData);
-      setMerchant(programData.merchants);
+      setProgram(programData as any);
+      setMerchant((programData as any).merchants);
     } catch (err) {
       console.error("Error loading program:", err);
       setError("Failed to load loyalty program");
