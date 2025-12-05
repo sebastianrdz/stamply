@@ -34,33 +34,37 @@ export default function DashboardPage() {
         .single();
 
       if (merchantData) {
-        setMerchant(merchantData);
+        setMerchant(merchantData as any);
 
         // Get loyalty program
         const { data: programData } = await supabase
           .from("loyalty_programs")
           .select("*")
-          .eq("merchant_id", merchantData.id)
+          .eq("merchant_id", (merchantData as any).id)
           .single();
 
         if (programData) {
-          setProgram(programData);
+          setProgram(programData as any);
 
           // Get stats
           const { data: customers } = await supabase
             .from("customers")
             .select("id")
-            .eq("loyalty_program_id", programData.id);
+            .eq("loyalty_program_id", (programData as any).id);
 
           const { data: passes } = await supabase
             .from("loyalty_passes")
             .select("current_stamps, reward_unlocked")
-            .eq("loyalty_program_id", programData.id);
+            .eq("loyalty_program_id", (programData as any).id);
 
           const totalStamps =
-            passes?.reduce((sum, pass) => sum + pass.current_stamps, 0) || 0;
+            (passes as any)?.reduce(
+              (sum: number, pass: any) => sum + pass.current_stamps,
+              0
+            ) || 0;
           const rewardsUnlocked =
-            passes?.filter((pass) => pass.reward_unlocked).length || 0;
+            (passes as any)?.filter((pass: any) => pass.reward_unlocked)
+              .length || 0;
 
           setStats({
             totalCustomers: customers?.length || 0,

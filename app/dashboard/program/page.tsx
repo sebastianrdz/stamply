@@ -38,21 +38,21 @@ export default function ProgramPage() {
         .single();
 
       if (merchantData) {
-        setMerchant(merchantData);
-        setBusinessName(merchantData.business_name);
-        setLogoUrl(merchantData.logo_url || "");
+        setMerchant(merchantData as any);
+        setBusinessName((merchantData as any).business_name);
+        setLogoUrl((merchantData as any).logo_url || "");
 
         const { data: programData } = await supabase
           .from("loyalty_programs")
           .select("*")
-          .eq("merchant_id", merchantData.id)
+          .eq("merchant_id", (merchantData as any).id)
           .single();
 
         if (programData) {
-          setProgram(programData);
-          setRewardName(programData.reward_name);
-          setStampsRequired(programData.stamps_required);
-          setStampUnitLabel(programData.stamp_unit_label);
+          setProgram(programData as any);
+          setRewardName((programData as any).reward_name);
+          setStampsRequired((programData as any).stamps_required);
+          setStampUnitLabel((programData as any).stamp_unit_label);
         }
       }
     } catch (error) {
@@ -82,21 +82,20 @@ export default function ProgramPage() {
             owner_user_id: user.id,
             business_name: businessName,
             logo_url: logoUrl || null,
-          })
+          } as any)
           .select()
           .single();
 
         if (merchantError) throw merchantError;
-        merchantId = newMerchant.id;
-        setMerchant(newMerchant);
+        merchantId = (newMerchant as any).id;
+        setMerchant(newMerchant as any);
       } else {
-        const { error: updateError } = await supabase
-          .from("merchants")
-          .update({
-            business_name: businessName,
-            logo_url: logoUrl || null,
-          })
-          .eq("id", merchant.id);
+        const { error: updateError } = await (
+          supabase.from("merchants").update as any
+        )({
+          business_name: businessName,
+          logo_url: logoUrl || null,
+        }).eq("id", merchant.id);
 
         if (updateError) throw updateError;
       }
@@ -111,21 +110,20 @@ export default function ProgramPage() {
             stamps_required: stampsRequired,
             stamp_unit_label: stampUnitLabel,
             public_id: generatePublicId(),
-          })
+          } as any)
           .select()
           .single();
 
         if (programError) throw programError;
-        setProgram(newProgram);
+        setProgram(newProgram as any);
       } else if (program) {
-        const { error: updateError } = await supabase
-          .from("loyalty_programs")
-          .update({
-            reward_name: rewardName,
-            stamps_required: stampsRequired,
-            stamp_unit_label: stampUnitLabel,
-          })
-          .eq("id", program.id);
+        const { error: updateError } = await (
+          supabase.from("loyalty_programs").update as any
+        )({
+          reward_name: rewardName,
+          stamps_required: stampsRequired,
+          stamp_unit_label: stampUnitLabel,
+        }).eq("id", program.id);
 
         if (updateError) throw updateError;
       }

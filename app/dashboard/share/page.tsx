@@ -31,11 +31,11 @@ export default function SharePage() {
         const { data: programData } = await supabase
           .from("loyalty_programs")
           .select("*")
-          .eq("merchant_id", merchantData.id)
+          .eq("merchant_id", (merchantData as any).id)
           .single();
 
         if (programData) {
-          setProgram(programData);
+          setProgram(programData as any);
         }
       }
     } catch (error) {
