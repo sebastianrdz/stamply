@@ -61,18 +61,20 @@ export default function HomePage() {
             </div>
 
             {/* Auth Buttons */}
-            <div className="flex items-center space-x-4">
+            <div className="flex items-center space-x-2 sm:space-x-4">
               <Link
                 href="/auth/login"
-                className="text-gray-700 hover:text-blue-600 font-medium transition-colors"
+                className="text-gray-700 hover:text-blue-600 font-medium transition-colors text-sm sm:text-base"
               >
-                Iniciar Sesión
+                <span className="hidden sm:inline">Iniciar Sesión</span>
+                <span className="sm:hidden">Entrar</span>
               </Link>
               <Link
                 href="/auth/signup"
-                className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 font-medium transition-colors shadow-sm"
+                className="bg-blue-600 text-white px-3 sm:px-6 py-2 rounded-lg hover:bg-blue-700 font-medium transition-colors shadow-sm text-sm sm:text-base"
               >
-                Comenzar Gratis
+                <span className="hidden sm:inline">Comenzar Gratis</span>
+                <span className="sm:hidden">Gratis</span>
               </Link>
             </div>
           </div>
@@ -90,10 +92,10 @@ export default function HomePage() {
                 : "opacity-0 translate-y-10"
             }`}
           >
-            <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 leading-tight">
               Recompensa a tus Clientes con Tarjetas de Lealtad Digitales
             </h1>
-            <p className="text-xl text-gray-600 mb-8">
+            <p className="text-lg sm:text-xl text-gray-600 mb-8">
               Crea hermosas tarjetas de lealtad digitales que se integran con
               Apple Wallet. ¡Olvídate de las tarjetas de papel y digitalízate
               hoy!
@@ -127,7 +129,7 @@ export default function HomePage() {
           >
             <div className="relative hover:scale-105 transition-transform duration-500">
               {/* iPhone Mockup */}
-              <div className="w-[280px] h-[560px] bg-gray-900 rounded-[3rem] p-3 shadow-2xl">
+              <div className="w-[240px] sm:w-[280px] h-[480px] sm:h-[560px] bg-gray-900 rounded-[2.5rem] sm:rounded-[3rem] p-2 sm:p-3 shadow-2xl">
                 <div className="w-full h-full bg-white rounded-[2.5rem] overflow-hidden">
                   {/* Status Bar */}
                   <div className="bg-gray-50 h-12 flex items-center justify-center">
@@ -135,33 +137,39 @@ export default function HomePage() {
                   </div>
 
                   {/* Wallet Card */}
-                  <div className="p-6">
-                    <div className="bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl shadow-xl p-6 text-white">
-                      <div className="flex justify-between items-start mb-8">
+                  <div className="p-4 sm:p-6">
+                    <div className="bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl sm:rounded-2xl shadow-xl p-4 sm:p-6 text-white">
+                      <div className="flex justify-between items-start mb-6 sm:mb-8">
                         <div>
-                          <p className="text-sm opacity-90">
+                          <p className="text-xs sm:text-sm opacity-90">
                             Tarjeta de Lealtad
                           </p>
-                          <h3 className="text-2xl font-bold mt-1">
+                          <h3 className="text-lg sm:text-2xl font-bold mt-1">
                             Tu Cafetería
                           </h3>
                         </div>
-                        <div className="text-4xl">☕</div>
+                        <div className="text-2xl sm:text-4xl">☕</div>
                       </div>
 
-                      <div className="mb-6">
-                        <p className="text-sm opacity-90 mb-2">Cliente</p>
-                        <p className="text-lg font-semibold">Juan Pérez</p>
+                      <div className="mb-4 sm:mb-6">
+                        <p className="text-xs sm:text-sm opacity-90 mb-1 sm:mb-2">
+                          Cliente
+                        </p>
+                        <p className="text-base sm:text-lg font-semibold">
+                          Juan Pérez
+                        </p>
                       </div>
 
                       {/* Stamps */}
-                      <div className="mb-4">
-                        <p className="text-sm opacity-90 mb-3">Progreso</p>
-                        <div className="flex gap-2">
+                      <div className="mb-3 sm:mb-4">
+                        <p className="text-xs sm:text-sm opacity-90 mb-2 sm:mb-3">
+                          Progreso
+                        </p>
+                        <div className="flex gap-1.5 sm:gap-2">
                           {[...Array(10)].map((_, i) => (
                             <div
                               key={i}
-                              className={`w-6 h-6 rounded-full border-2 border-white ${
+                              className={`w-5 h-5 sm:w-6 sm:h-6 rounded-full border-2 border-white ${
                                 i < 6 ? "bg-white" : "bg-transparent"
                               }`}
                             ></div>
@@ -169,7 +177,7 @@ export default function HomePage() {
                         </div>
                       </div>
 
-                      <div className="text-sm opacity-90 mt-4">
+                      <div className="text-xs sm:text-sm opacity-90 mt-3 sm:mt-4">
                         10 sellos = 1 café gratis
                       </div>
                     </div>
@@ -283,12 +291,12 @@ export default function HomePage() {
       {/* Value & ROI Section */}
       <section className="bg-gradient-to-br from-blue-600 to-indigo-700 py-16 md:py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 opacity-0 animate-slide-up">
+          <div className="text-center mb-12 sm:mb-16">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4 sm:mb-6 opacity-0 animate-slide-up px-4">
               El Valor Real de un Programa de Lealtad
             </h2>
             <p
-              className="text-xl text-blue-100 max-w-3xl mx-auto opacity-0 animate-slide-up"
+              className="text-base sm:text-lg md:text-xl text-blue-100 max-w-3xl mx-auto opacity-0 animate-slide-up px-4"
               style={{ animationDelay: "150ms" }}
             >
               Los programas de lealtad no son solo un beneficio para tus
@@ -297,16 +305,16 @@ export default function HomePage() {
           </div>
 
           {/* Stats Grid */}
-          <div className="grid md:grid-cols-3 gap-8 mb-16">
+          <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 md:gap-8 mb-12 sm:mb-16">
             <div
               className="text-center opacity-0 animate-slide-up"
               style={{ animationDelay: "200ms" }}
             >
-              <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 hover:bg-white/20 transition-all duration-300 hover:scale-105">
-                <div className="text-5xl md:text-6xl font-bold text-white mb-2">
+              <div className="bg-white/10 backdrop-blur-sm rounded-xl sm:rounded-2xl p-6 sm:p-8 hover:bg-white/20 transition-all duration-300 hover:scale-105">
+                <div className="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-2">
                   67%
                 </div>
-                <p className="text-blue-100 text-lg">
+                <p className="text-blue-100 text-sm sm:text-base md:text-lg">
                   de clientes gastan más cuando participan en un programa de
                   lealtad
                 </p>
@@ -316,24 +324,24 @@ export default function HomePage() {
               className="text-center opacity-0 animate-slide-up"
               style={{ animationDelay: "300ms" }}
             >
-              <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 hover:bg-white/20 transition-all duration-300 hover:scale-105">
-                <div className="text-5xl md:text-6xl font-bold text-white mb-2">
+              <div className="bg-white/10 backdrop-blur-sm rounded-xl sm:rounded-2xl p-6 sm:p-8 hover:bg-white/20 transition-all duration-300 hover:scale-105">
+                <div className="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-2">
                   5x
                 </div>
-                <p className="text-blue-100 text-lg">
+                <p className="text-blue-100 text-sm sm:text-base md:text-lg">
                   más económico retener un cliente que conseguir uno nuevo
                 </p>
               </div>
             </div>
             <div
-              className="text-center opacity-0 animate-slide-up"
+              className="text-center opacity-0 animate-slide-up sm:col-span-2 md:col-span-1"
               style={{ animationDelay: "400ms" }}
             >
-              <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 hover:bg-white/20 transition-all duration-300 hover:scale-105">
-                <div className="text-5xl md:text-6xl font-bold text-white mb-2">
+              <div className="bg-white/10 backdrop-blur-sm rounded-xl sm:rounded-2xl p-6 sm:p-8 hover:bg-white/20 transition-all duration-300 hover:scale-105">
+                <div className="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-2">
                   +40%
                 </div>
-                <p className="text-blue-100 text-lg">
+                <p className="text-blue-100 text-sm sm:text-base md:text-lg">
                   aumento en frecuencia de visitas con programas de lealtad
                   efectivos
                 </p>
@@ -342,20 +350,20 @@ export default function HomePage() {
           </div>
 
           {/* Benefits Grid */}
-          <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+          <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 md:gap-8 max-w-5xl mx-auto">
             <div
-              className="bg-white rounded-2xl p-8 shadow-xl opacity-0 animate-slide-up hover:shadow-2xl transition-shadow"
+              className="bg-white rounded-xl sm:rounded-2xl p-6 sm:p-8 shadow-xl opacity-0 animate-slide-up hover:shadow-2xl transition-shadow"
               style={{ animationDelay: "500ms" }}
             >
-              <div className="flex items-start gap-4">
-                <div className="flex-shrink-0 w-12 h-12 bg-blue-600 text-white rounded-lg flex items-center justify-center text-2xl">
+              <div className="flex items-start gap-3 sm:gap-4">
+                <div className="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 bg-blue-600 text-white rounded-lg flex items-center justify-center text-xl sm:text-2xl">
                   💰
                 </div>
                 <div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-2">
+                  <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-2">
                     Aumenta el Ticket Promedio
                   </h3>
-                  <p className="text-gray-600">
+                  <p className="text-sm sm:text-base text-gray-600">
                     Los clientes con tarjetas de lealtad tienden a comprar más
                     por visita para alcanzar su siguiente recompensa. Un café
                     extra, un pastel adicional - cada compra cuenta.
@@ -365,18 +373,18 @@ export default function HomePage() {
             </div>
 
             <div
-              className="bg-white rounded-2xl p-8 shadow-xl opacity-0 animate-slide-up hover:shadow-2xl transition-shadow"
+              className="bg-white rounded-xl sm:rounded-2xl p-6 sm:p-8 shadow-xl opacity-0 animate-slide-up hover:shadow-2xl transition-shadow"
               style={{ animationDelay: "600ms" }}
             >
-              <div className="flex items-start gap-4">
-                <div className="flex-shrink-0 w-12 h-12 bg-blue-600 text-white rounded-lg flex items-center justify-center text-2xl">
+              <div className="flex items-start gap-3 sm:gap-4">
+                <div className="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 bg-blue-600 text-white rounded-lg flex items-center justify-center text-xl sm:text-2xl">
                   🔄
                 </div>
                 <div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-2">
+                  <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-2">
                     Clientes que Regresan Más Seguido
                   </h3>
-                  <p className="text-gray-600">
+                  <p className="text-sm sm:text-base text-gray-600">
                     La anticipación de completar su tarjeta motiva a los
                     clientes a elegir tu cafetería sobre la competencia. Más
                     visitas = más ingresos.
@@ -386,18 +394,18 @@ export default function HomePage() {
             </div>
 
             <div
-              className="bg-white rounded-2xl p-8 shadow-xl opacity-0 animate-slide-up hover:shadow-2xl transition-shadow"
+              className="bg-white rounded-xl sm:rounded-2xl p-6 sm:p-8 shadow-xl opacity-0 animate-slide-up hover:shadow-2xl transition-shadow"
               style={{ animationDelay: "700ms" }}
             >
-              <div className="flex items-start gap-4">
-                <div className="flex-shrink-0 w-12 h-12 bg-blue-600 text-white rounded-lg flex items-center justify-center text-2xl">
+              <div className="flex items-start gap-3 sm:gap-4">
+                <div className="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 bg-blue-600 text-white rounded-lg flex items-center justify-center text-xl sm:text-2xl">
                   📊
                 </div>
                 <div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-2">
+                  <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-2">
                     Datos Valiosos de tus Clientes
                   </h3>
-                  <p className="text-gray-600">
+                  <p className="text-sm sm:text-base text-gray-600">
                     Conoce quiénes son tus mejores clientes, cuándo visitan y
                     qué compran. Información que te ayuda a tomar mejores
                     decisiones de negocio.
@@ -407,18 +415,18 @@ export default function HomePage() {
             </div>
 
             <div
-              className="bg-white rounded-2xl p-8 shadow-xl opacity-0 animate-slide-up hover:shadow-2xl transition-shadow"
+              className="bg-white rounded-xl sm:rounded-2xl p-6 sm:p-8 shadow-xl opacity-0 animate-slide-up hover:shadow-2xl transition-shadow"
               style={{ animationDelay: "800ms" }}
             >
-              <div className="flex items-start gap-4">
-                <div className="flex-shrink-0 w-12 h-12 bg-blue-600 text-white rounded-lg flex items-center justify-center text-2xl">
+              <div className="flex items-start gap-3 sm:gap-4">
+                <div className="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 bg-blue-600 text-white rounded-lg flex items-center justify-center text-xl sm:text-2xl">
                   ❤️
                 </div>
                 <div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-2">
+                  <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-2">
                     Construye Lealtad Real
                   </h3>
-                  <p className="text-gray-600">
+                  <p className="text-sm sm:text-base text-gray-600">
                     Los clientes se sienten valorados y apreciados. Un programa
                     de lealtad bien ejecutado transforma compradores ocasionales
                     en embajadores de tu marca.
@@ -429,52 +437,57 @@ export default function HomePage() {
           </div>
 
           {/* ROI Example */}
-          <div className="mt-16 max-w-4xl mx-auto">
+          <div className="mt-12 sm:mt-16 max-w-4xl mx-auto">
             <div
-              className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 md:p-12 border-2 border-white/20 opacity-0 animate-slide-up"
+              className="bg-white/10 backdrop-blur-sm rounded-xl sm:rounded-2xl p-6 sm:p-8 md:p-12 border-2 border-white/20 opacity-0 animate-slide-up"
               style={{ animationDelay: "900ms" }}
             >
-              <h3 className="text-2xl md:text-3xl font-bold text-white mb-6 text-center">
+              <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-6 text-center px-2">
                 Ejemplo Real: Cafetería con 100 Clientes Activos
               </h3>
-              <div className="grid md:grid-cols-3 gap-6 text-center">
-                <div>
-                  <div className="text-blue-100 text-sm uppercase tracking-wide mb-2">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 text-center">
+                <div className="bg-white/5 rounded-lg p-4 sm:bg-transparent sm:p-0">
+                  <div className="text-blue-100 text-xs sm:text-sm uppercase tracking-wide mb-2">
                     Antes
                   </div>
-                  <div className="text-3xl font-bold text-white mb-1">
+                  <div className="text-2xl sm:text-3xl font-bold text-white mb-1">
                     2 visitas/mes
                   </div>
-                  <div className="text-blue-200 text-sm">
+                  <div className="text-blue-200 text-xs sm:text-sm">
                     $80 promedio/cliente
                   </div>
                 </div>
-                <div className="flex items-center justify-center">
+                <div className="hidden sm:flex items-center justify-center">
                   <div className="text-4xl text-white animate-pulse-slow">
                     →
                   </div>
                 </div>
-                <div>
-                  <div className="text-blue-100 text-sm uppercase tracking-wide mb-2">
+                <div className="sm:hidden flex items-center justify-center py-2">
+                  <div className="text-3xl text-white animate-pulse-slow rotate-90">
+                    →
+                  </div>
+                </div>
+                <div className="bg-white/5 rounded-lg p-4 sm:bg-transparent sm:p-0">
+                  <div className="text-blue-100 text-xs sm:text-sm uppercase tracking-wide mb-2">
                     Con Stamply
                   </div>
-                  <div className="text-3xl font-bold text-white mb-1">
+                  <div className="text-2xl sm:text-3xl font-bold text-white mb-1">
                     3 visitas/mes
                   </div>
-                  <div className="text-blue-200 text-sm">
+                  <div className="text-blue-200 text-xs sm:text-sm">
                     $120 promedio/cliente
                   </div>
                 </div>
               </div>
-              <div className="mt-8 pt-8 border-t border-white/20">
+              <div className="mt-6 sm:mt-8 pt-6 sm:pt-8 border-t border-white/20">
                 <div className="text-center">
-                  <div className="text-blue-100 text-lg mb-2">
+                  <div className="text-blue-100 text-base sm:text-lg mb-2">
                     Incremento mensual en ingresos
                   </div>
-                  <div className="text-4xl md:text-5xl font-bold text-white">
+                  <div className="text-3xl sm:text-4xl md:text-5xl font-bold text-white">
                     +$4,000 MXN
                   </div>
-                  <div className="text-blue-200 mt-2">
+                  <div className="text-blue-200 mt-2 text-sm sm:text-base">
                     Inversión: $499/mes • ROI: 800%
                   </div>
                 </div>
