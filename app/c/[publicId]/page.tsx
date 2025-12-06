@@ -104,7 +104,7 @@ export default function CustomerSignupPage() {
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100">
-        <div className="text-gray-600">Cargando...</div>
+        <div className="text-gray-700">Cargando...</div>
       </div>
     );
   }
@@ -220,7 +220,7 @@ export default function CustomerSignupPage() {
               value={firstName}
               onChange={(e) => setFirstName(e.target.value)}
               required
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+              className="text-gray-700 w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
               placeholder="Tu nombre"
             />
           </div>
@@ -237,7 +237,7 @@ export default function CustomerSignupPage() {
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+              className="text-gray-700 w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
               placeholder="tu@correo.com"
             />
             <p className="text-xs text-gray-500 mt-1">

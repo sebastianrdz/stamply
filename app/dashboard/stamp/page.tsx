@@ -57,7 +57,7 @@ export default function StampPage() {
               onChange={(e) => setPassSerial(e.target.value)}
               required
               autoFocus
-              className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 text-lg"
+              className="text-gray-700 flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 text-lg"
               placeholder="Ingresa el número de serie del pase"
             />
             <button

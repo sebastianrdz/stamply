@@ -137,7 +137,7 @@ export default function ProgramPage() {
   }
 
   if (loading) {
-    return <div className="text-center py-12">Cargando...</div>;
+    return <div className="text-center py-12 text-gray-700">Cargando...</div>;
   }
 
   const stampUnitPlural = pluralize(stampUnitLabel, stampsRequired);
@@ -170,7 +170,7 @@ export default function ProgramPage() {
                 value={businessName}
                 onChange={(e) => setBusinessName(e.target.value)}
                 required
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                className="text-gray-700 w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
                 placeholder="ej., Café Monterrey"
               />
             </div>
@@ -182,7 +182,7 @@ export default function ProgramPage() {
                 type="url"
                 value={logoUrl}
                 onChange={(e) => setLogoUrl(e.target.value)}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                className="text-gray-700 w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
                 placeholder="https://ejemplo.com/logo.png"
               />
             </div>
@@ -204,7 +204,7 @@ export default function ProgramPage() {
                 value={rewardName}
                 onChange={(e) => setRewardName(e.target.value)}
                 required
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                className="text-gray-700 w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
                 placeholder="ej., PASTEL ½ KG GRATIS"
               />
             </div>
@@ -231,7 +231,7 @@ export default function ProgramPage() {
                 value={stampUnitLabel}
                 onChange={(e) => setStampUnitLabel(e.target.value)}
                 required
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                className="text-gray-700 w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
                 placeholder="ej., rebanada, café, visita"
               />
               <p className="text-sm text-gray-500 mt-1">

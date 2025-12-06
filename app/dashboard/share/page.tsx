@@ -60,7 +60,7 @@ export default function SharePage() {
   }
 
   if (loading) {
-    return <div className="text-center py-12">Cargando...</div>;
+    return <div className="text-center py-12 text-gray-700">Cargando...</div>;
   }
 
   if (!program) {
@@ -105,7 +105,7 @@ export default function SharePage() {
               type="text"
               value={signupUrl}
               readOnly
-              className="flex-1 px-4 py-2 border border-gray-300 rounded-lg bg-gray-50"
+              className="text-gray-700 flex-1 px-4 py-2 border border-gray-300 rounded-lg bg-gray-50"
             />
             <button
               onClick={copyToClipboard}

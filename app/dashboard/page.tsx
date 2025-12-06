@@ -81,7 +81,7 @@ export default function DashboardPage() {
   }
 
   if (loading) {
-    return <div className="text-center py-12">Cargando...</div>;
+    return <div className="text-center py-12 text-gray-700">Cargando...</div>;
   }
 
   if (!merchant) {
