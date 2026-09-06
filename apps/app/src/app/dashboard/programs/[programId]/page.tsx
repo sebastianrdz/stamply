@@ -10,16 +10,17 @@ import { interpolate } from "@stamply/i18n/format";
 import { qrDataUrl } from "@/lib/qr";
 import { enrollUrl } from "@/lib/urls";
 import { fetchAsDataUrl } from "@/lib/images";
-import { toggleProgramActive } from "@/lib/programs/actions";
 import { PageHeader } from "@/components/dashboard/page-header";
 import { Card, CardContent, CardHeader, CardTitle } from "@stamply/ui/card";
 import { Badge } from "@stamply/ui/badge";
-import { Button, buttonVariants } from "@stamply/ui/button";
+import { buttonVariants } from "@stamply/ui/button";
 import { CopyButton } from "@/components/copy-button";
 import { cn } from "@stamply/ui/utils";
 import { DeleteProgramDialog } from "./delete-program-dialog";
 import { DownloadQrButton } from "./download-qr-button";
+import { ProgramActiveToggle } from "./program-active-toggle";
 import { TemplatesSection } from "./templates/templates-section";
+import { ProgramsToastListener } from "../programs-toast-listener";
 import type { Program } from "@/types/database";
 
 /** `${name}-qr.png`-style filename, e.g. "café-loyalty-qr.png". */
@@ -74,6 +75,7 @@ export default async function ProgramDetailPage({
 
   return (
     <>
+      <ProgramsToastListener />
       <PageHeader
         title={program.name}
         description={
@@ -102,19 +104,10 @@ export default async function ProgramDetailPage({
               <Pencil className="size-4" />
               {dict.dashboard.programs.detail.editCta}
             </Link>
-            <form
-              action={toggleProgramActive.bind(
-                null,
-                program.id,
-                !program.active,
-              )}
-            >
-              <Button type="submit" variant="outline" size="sm">
-                {program.active
-                  ? dict.dashboard.programs.detail.disableCta
-                  : dict.dashboard.programs.detail.enableCta}
-              </Button>
-            </form>
+            <ProgramActiveToggle
+              programId={program.id}
+              active={program.active}
+            />
           </div>
         }
       />

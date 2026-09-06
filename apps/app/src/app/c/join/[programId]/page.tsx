@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Gift } from "lucide-react";
 import { createAdminClient } from "@/lib/supabase/admin";
@@ -8,6 +9,43 @@ import { interpolate } from "@stamply/i18n/format";
 import { Card, CardContent } from "@stamply/ui/card";
 import type { Business, Program } from "@/types/database";
 import { EnrollForm } from "./enroll-form";
+
+export async function generateMetadata({
+  params,
+}: PageProps<"/c/join/[programId]">): Promise<Metadata> {
+  const { programId } = await params;
+  const dict = await getDictionary(await getLocale());
+  const admin = createAdminClient();
+  const { data, error } = await admin
+    .from("programs")
+    .select("*, business:businesses(*)")
+    .eq("id", programId)
+    .single();
+
+  // Same PGRST116-vs-real-error distinction as the page body below: only a
+  // genuine backend failure should be logged here, not the ordinary
+  // not-found case.
+  if ((error && error.code !== "PGRST116") || !data) {
+    if (error) {
+      console.error(
+        `[c/join] metadata lookup failed for programId=${programId}`,
+        error,
+      );
+    }
+    return { description: dict.seo.description };
+  }
+
+  const business = (data as unknown as Program & { business: Business })
+    .business;
+  return {
+    title: interpolate(dict.customerJoin.meta.title, {
+      business: business.name,
+    }),
+    description: interpolate(dict.customerJoin.meta.description, {
+      business: business.name,
+    }),
+  };
+}
 
 export default async function JoinPage({
   params,

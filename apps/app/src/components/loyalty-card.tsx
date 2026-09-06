@@ -60,7 +60,6 @@ export function LoyaltyCard({
               alt={`${businessName} logo`}
               width={52}
               height={52}
-              unoptimized
               className="size-13 shrink-0 object-contain"
             />
           )}
@@ -89,7 +88,7 @@ export function LoyaltyCard({
               src={backgroundImageUrl}
               alt=""
               fill
-              unoptimized
+              sizes="(max-width: 472px) calc(100vw - 88px), 344px"
               className="object-cover"
             />
             <div className="absolute inset-0 bg-black/40" />

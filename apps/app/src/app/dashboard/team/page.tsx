@@ -85,7 +85,7 @@ export default async function TeamPage() {
           {(members ?? []).map((m: Membership) => (
             <div
               key={m.id}
-              className="flex items-center justify-between gap-3 py-3 first:pt-0 last:pb-0"
+              className="flex flex-wrap items-center justify-between gap-3 py-3 first:pt-0 last:pb-0"
             >
               <div className="min-w-0">
                 <p className="truncate text-sm font-medium">

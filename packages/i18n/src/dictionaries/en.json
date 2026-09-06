@@ -523,6 +523,21 @@
           "deleting": "Deleting…"
         }
       }
+    },
+    "toasts": {
+      "locationCreated": "Location added",
+      "programCreated": "Program created",
+      "programUpdated": "Program updated",
+      "programDeleted": "Program deleted",
+      "programActivated": "Program activated",
+      "programDeactivated": "Program paused",
+      "rewardActivated": "Reward activated",
+      "rewardDeactivated": "Reward paused",
+      "businessCreated": "Welcome to Stamply!",
+      "businessDeleted": "Business deleted",
+      "billingSuccess": "Subscription updated",
+      "billingNoChange": "No changes were made",
+      "teamJoined": "Joined {business}"
     }
   },
   "billing": {
@@ -530,7 +545,11 @@
       "trial": {
         "name": "Trial",
         "tagline": "14 days, full features, capped.",
-        "features": ["All features", "1 location", "Up to 50 customers"]
+        "features": [
+          "All features",
+          "1 location",
+          "Up to 50 customers"
+        ]
       },
       "small": {
         "name": "Small",
@@ -638,6 +657,10 @@
     "error": {
       "title": "Something went wrong",
       "description": "We couldn't load this loyalty program. Please try again in a moment."
+    },
+    "meta": {
+      "title": "Join {business}'s loyalty program",
+      "description": "Sign up for {business}'s rewards program and start collecting stamps today."
     }
   },
   "card": {
@@ -670,6 +693,10 @@
         "rewardReady": "Reward ready!",
         "viewCard": "View card"
       }
+    },
+    "meta": {
+      "title": "{business} — Loyalty Card",
+      "description": "Track your stamps and rewards with {business} on Stamply."
     }
   },
   "landing": {
@@ -758,7 +785,9 @@
     },
     "nav": {
       "privacyTitle": "Privacy Notice",
-      "termsTitle": "Terms and Conditions"
+      "termsTitle": "Terms and Conditions",
+      "privacyDescription": "How Stamply collects, uses, and protects your personal data.",
+      "termsDescription": "The terms and conditions for using Stamply's loyalty platform."
     },
     "privacy": {
       "title": "Stamply Privacy Notice",

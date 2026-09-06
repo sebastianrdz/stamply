@@ -523,6 +523,21 @@
           "deleting": "Eliminando…"
         }
       }
+    },
+    "toasts": {
+      "locationCreated": "Ubicación agregada",
+      "programCreated": "Programa creado",
+      "programUpdated": "Programa actualizado",
+      "programDeleted": "Programa eliminado",
+      "programActivated": "Programa activado",
+      "programDeactivated": "Programa pausado",
+      "rewardActivated": "Recompensa activada",
+      "rewardDeactivated": "Recompensa pausada",
+      "businessCreated": "¡Bienvenido a Stamply!",
+      "businessDeleted": "Negocio eliminado",
+      "billingSuccess": "Suscripción actualizada",
+      "billingNoChange": "No se realizaron cambios",
+      "teamJoined": "Te uniste a {business}"
     }
   },
   "billing": {
@@ -530,7 +545,11 @@
       "trial": {
         "name": "Prueba",
         "tagline": "14 días, todas las funciones, con límites.",
-        "features": ["Todas las funciones", "1 sucursal", "Hasta 50 clientes"]
+        "features": [
+          "Todas las funciones",
+          "1 sucursal",
+          "Hasta 50 clientes"
+        ]
       },
       "small": {
         "name": "Pequeño",
@@ -638,6 +657,10 @@
     "error": {
       "title": "Algo salió mal",
       "description": "No pudimos cargar este programa de lealtad. Intenta de nuevo en unos momentos."
+    },
+    "meta": {
+      "title": "Únete al programa de lealtad de {business}",
+      "description": "Regístrate en el programa de recompensas de {business} y empieza a coleccionar sellos hoy."
     }
   },
   "card": {
@@ -670,6 +693,10 @@
         "rewardReady": "¡Recompensa lista!",
         "viewCard": "Ver tarjeta"
       }
+    },
+    "meta": {
+      "title": "{business} — Tarjeta de lealtad",
+      "description": "Sigue tus sellos y recompensas con {business} en Stamply."
     }
   },
   "landing": {
@@ -758,7 +785,9 @@
     },
     "nav": {
       "privacyTitle": "Aviso de Privacidad",
-      "termsTitle": "Términos y Condiciones"
+      "termsTitle": "Términos y Condiciones",
+      "privacyDescription": "Cómo Stamply recopila, usa y protege tus datos personales.",
+      "termsDescription": "Los términos y condiciones para usar la plataforma de lealtad de Stamply."
     },
     "privacy": {
       "title": "Aviso de Privacidad de Stamply",

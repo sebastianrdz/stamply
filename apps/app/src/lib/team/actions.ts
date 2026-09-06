@@ -209,5 +209,5 @@ export async function acceptInvitation(
     maxAge: 60 * 60 * 24 * 365,
     sameSite: "lax",
   });
-  redirect("/dashboard");
+  redirect("/dashboard?joined=1");
 }

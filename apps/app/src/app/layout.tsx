@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { getLocale } from "@stamply/i18n/locale";
 import { getDictionary } from "@stamply/i18n/dictionaries";
 import { LocaleProvider } from "@stamply/i18n/provider";
+import { Toaster } from "@stamply/ui/toast";
 import { PostHogProvider } from "@/components/analytics/posthog-provider";
 import "./globals.css";
 
@@ -45,6 +46,7 @@ export default async function RootLayout({
         <LocaleProvider locale={locale} dict={dict}>
           <PostHogProvider>{children}</PostHogProvider>
         </LocaleProvider>
+        <Toaster />
       </body>
     </html>
   );

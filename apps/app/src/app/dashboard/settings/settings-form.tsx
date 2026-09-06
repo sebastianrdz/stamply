@@ -80,7 +80,6 @@ function ImageUploadField({
                 src={shown}
                 alt={`${label} preview`}
                 fill
-                unoptimized
                 className="object-contain"
               />
             )

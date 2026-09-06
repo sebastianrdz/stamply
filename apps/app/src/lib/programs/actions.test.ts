@@ -153,7 +153,7 @@ describe("updateProgram", () => {
           reward_description: "Free drink",
         }),
       ),
-    ).rejects.toThrow("NEXT_REDIRECT:/dashboard/programs/prog-1");
+    ).rejects.toThrow("NEXT_REDIRECT:/dashboard/programs/prog-1?updated=1");
 
     const builder = mock.builderFor("programs");
     expect(builder.update).toHaveBeenCalledWith(
@@ -170,7 +170,9 @@ describe("updateProgram", () => {
     expect(revalidatePathMock).toHaveBeenCalledWith(
       "/dashboard/programs/prog-1",
     );
-    expect(redirect).toHaveBeenCalledWith("/dashboard/programs/prog-1");
+    expect(redirect).toHaveBeenCalledWith(
+      "/dashboard/programs/prog-1?updated=1",
+    );
     expect(captureServerEventMock).toHaveBeenCalledWith({
       distinctId: "user-1",
       event: "program_updated",
@@ -347,7 +349,7 @@ describe("deleteProgram", () => {
     createClientMock.mockResolvedValue(mock);
 
     await expect(deleteProgram("prog-1", {}, new FormData())).rejects.toThrow(
-      "NEXT_REDIRECT:/dashboard/programs",
+      "NEXT_REDIRECT:/dashboard/programs?deleted=1",
     );
 
     const deleteBuilder = mock.builderFor("programs", 1);
@@ -356,7 +358,7 @@ describe("deleteProgram", () => {
     expect(deleteBuilder.eq).toHaveBeenCalledWith("business_id", "biz-1");
     expect(deleteBuilder.eq).toHaveBeenCalledWith("active", false);
     expect(revalidatePathMock).toHaveBeenCalledWith("/dashboard/programs");
-    expect(redirect).toHaveBeenCalledWith("/dashboard/programs");
+    expect(redirect).toHaveBeenCalledWith("/dashboard/programs?deleted=1");
     expect(captureServerEventMock).toHaveBeenCalledWith({
       distinctId: "user-1",
       event: "program_deleted",

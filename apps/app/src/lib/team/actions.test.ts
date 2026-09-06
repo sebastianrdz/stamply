@@ -453,14 +453,14 @@ describe("acceptInvitation", () => {
 
     await expect(
       acceptInvitation({}, form({ token: "tok-1" })),
-    ).rejects.toThrow("NEXT_REDIRECT:/dashboard");
+    ).rejects.toThrow("NEXT_REDIRECT:/dashboard?joined=1");
 
     expect(cookieSetMock).toHaveBeenCalledWith(
       ACTIVE_BUSINESS_COOKIE,
       "biz-1",
       expect.objectContaining({ path: "/" }),
     );
-    expect(redirect).toHaveBeenCalledWith("/dashboard");
+    expect(redirect).toHaveBeenCalledWith("/dashboard?joined=1");
     const membershipInsert = mock.builderFor("memberships", 1).insert.mock
       .calls[0][0];
     expect(membershipInsert).toEqual(
@@ -498,11 +498,11 @@ describe("acceptInvitation", () => {
 
     await expect(
       acceptInvitation({}, form({ token: "tok-1" })),
-    ).rejects.toThrow("NEXT_REDIRECT:/dashboard");
+    ).rejects.toThrow("NEXT_REDIRECT:/dashboard?joined=1");
 
     expect(assertWithinLimitMock).not.toHaveBeenCalled();
     expect(mock.callCounts.memberships).toBe(1); // only the existence check
-    expect(redirect).toHaveBeenCalledWith("/dashboard");
+    expect(redirect).toHaveBeenCalledWith("/dashboard?joined=1");
     // Already-a-member path still fires the acceptance event.
     expect(captureServerEventMock).toHaveBeenCalledWith({
       distinctId: "u1",

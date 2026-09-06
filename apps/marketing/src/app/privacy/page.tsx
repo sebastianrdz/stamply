@@ -9,6 +9,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const dict = await getDictionary(await getLocale());
   return {
     title: dict.legal.nav.privacyTitle,
+    description: dict.legal.nav.privacyDescription,
     alternates: {
       canonical: "/privacy",
       languages: { es: "/privacy", en: "/privacy", "x-default": "/privacy" },

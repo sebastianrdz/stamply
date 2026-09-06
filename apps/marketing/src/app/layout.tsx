@@ -4,6 +4,7 @@ import { Analytics } from "@vercel/analytics/next";
 import { getLocale } from "@stamply/i18n/locale";
 import { getDictionary } from "@stamply/i18n/dictionaries";
 import { LocaleProvider } from "@stamply/i18n/provider";
+import { Toaster } from "@stamply/ui/toast";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -45,6 +46,7 @@ export default async function RootLayout({
         <LocaleProvider locale={locale} dict={dict}>
           {children}
         </LocaleProvider>
+        <Toaster />
         <Analytics />
       </body>
     </html>

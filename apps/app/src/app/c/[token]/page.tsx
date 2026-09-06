@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { createAdminClient } from "@/lib/supabase/admin";
 import {
@@ -10,9 +11,35 @@ import { qrDataUrl } from "@/lib/qr";
 import { brandStyle } from "@/lib/brand";
 import { getLocale } from "@stamply/i18n/locale";
 import { getDictionary } from "@stamply/i18n/dictionaries";
+import { interpolate } from "@stamply/i18n/format";
 import { LoyaltyCard } from "@/components/loyalty-card";
 import { WalletButtons } from "./wallet-buttons";
 import { NotificationsSection } from "./notifications-section";
+
+export async function generateMetadata({
+  params,
+}: PageProps<"/c/[token]">): Promise<Metadata> {
+  const { token } = await params;
+  const dict = await getDictionary(await getLocale());
+  const admin = createAdminClient();
+  let card: Awaited<ReturnType<typeof getCardByToken>>;
+  try {
+    card = await getCardByToken(admin, token);
+  } catch (e) {
+    // Same rationale as the page body's try/catch below: a real backend
+    // failure shouldn't surface as a broken metadata lookup — fall back to
+    // the generic site description instead.
+    console.error("[card] metadata lookup failed", e);
+    return { description: dict.seo.description };
+  }
+  if (!card) return { description: dict.seo.description };
+  return {
+    title: interpolate(dict.card.meta.title, { business: card.business.name }),
+    description: interpolate(dict.card.meta.description, {
+      business: card.business.name,
+    }),
+  };
+}
 
 export default async function CardPage({ params }: PageProps<"/c/[token]">) {
   const { token } = await params;

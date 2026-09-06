@@ -8,7 +8,7 @@ export function PageHeaderSkeleton({ action }: { action?: boolean } = {}) {
     <div className="mb-6 flex flex-wrap items-start justify-between gap-4">
       <div className="flex flex-col gap-2">
         <Skeleton className="h-8 w-48" />
-        <Skeleton className="h-4 w-72" />
+        <Skeleton className="h-4 w-72 max-w-full" />
       </div>
       {action && <Skeleton className="h-9 w-36 rounded-lg" />}
     </div>

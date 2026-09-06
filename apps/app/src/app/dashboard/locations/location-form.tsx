@@ -10,6 +10,7 @@ import { useTranslations } from "@stamply/i18n/provider";
 import { Button } from "@stamply/ui/button";
 import { Input } from "@stamply/ui/input";
 import { Label } from "@stamply/ui/label";
+import { toast } from "@stamply/ui/toast";
 
 const initialState: LocationFormState = {};
 
@@ -25,9 +26,17 @@ export function LocationForm() {
   const [locating, setLocating] = useState(false);
   const [geoError, setGeoError] = useState<string | null>(null);
 
+  // Guarded by `prevPending` (same pattern as birthday-reward-form.tsx) so
+  // this only fires on a pending -> settled transition, not on initial mount
+  // where `pending`/`state.error` also happen to satisfy the condition.
+  const prevPending = useRef(false);
   useEffect(() => {
-    if (!pending && !state.error) formRef.current?.reset();
-  }, [pending, state.error]);
+    if (prevPending.current && !pending && !state.error) {
+      formRef.current?.reset();
+      toast.success(dict.dashboard.toasts.locationCreated);
+    }
+    prevPending.current = pending;
+  }, [pending, state.error, dict]);
 
   function handleUseLocation() {
     setGeoError(null);

@@ -102,7 +102,7 @@ export async function createProgram(
   });
 
   revalidatePath("/dashboard/programs");
-  redirect("/dashboard/programs");
+  redirect("/dashboard/programs?created=1");
 }
 
 export async function toggleProgramActive(programId: string, active: boolean) {
@@ -170,7 +170,7 @@ export async function updateProgram(
 
   revalidatePath("/dashboard/programs");
   revalidatePath(`/dashboard/programs/${programId}`);
-  redirect(`/dashboard/programs/${programId}`);
+  redirect(`/dashboard/programs/${programId}?updated=1`);
 }
 
 /**
@@ -233,5 +233,5 @@ export async function deleteProgram(
   });
 
   revalidatePath("/dashboard/programs");
-  redirect("/dashboard/programs");
+  redirect("/dashboard/programs?deleted=1");
 }
