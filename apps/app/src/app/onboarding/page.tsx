@@ -5,6 +5,7 @@ import { getLocale } from "@stamply/i18n/locale";
 import { getDictionary } from "@stamply/i18n/dictionaries";
 import { Logo } from "@stamply/ui/logo";
 import { OnboardingForm } from "./onboarding-form";
+import { OnboardingToastListener } from "./onboarding-toast-listener";
 
 export async function generateMetadata(): Promise<Metadata> {
   const dict = await getDictionary(await getLocale());
@@ -31,6 +32,7 @@ export default async function OnboardingPage({
 
   return (
     <div className="flex min-h-full flex-col">
+      <OnboardingToastListener />
       <header className="p-6">
         <Logo />
       </header>

@@ -156,9 +156,9 @@ export async function deleteBusiness(
       maxAge: 60 * 60 * 24 * 365,
       sameSite: "lax",
     });
-    redirect("/dashboard");
+    redirect("/dashboard?deleted=1");
   } else {
     cookieStore.delete(ACTIVE_BUSINESS_COOKIE);
-    redirect("/onboarding");
+    redirect("/onboarding?deleted=1");
   }
 }

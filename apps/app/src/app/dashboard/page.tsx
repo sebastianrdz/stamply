@@ -10,6 +10,7 @@ import { cn } from "@stamply/ui/utils";
 import { getLocale } from "@stamply/i18n/locale";
 import { getDictionary } from "@stamply/i18n/dictionaries";
 import { interpolate } from "@stamply/i18n/format";
+import { DashboardToastListener } from "./dashboard-toast-listener";
 
 export default async function DashboardOverview() {
   const { membership } = await requireBusiness();
@@ -19,6 +20,7 @@ export default async function DashboardOverview() {
 
   return (
     <>
+      <DashboardToastListener businessName={membership.business.name} />
       <PageHeader
         title={interpolate(overview.welcome, {
           business: membership.business.name,

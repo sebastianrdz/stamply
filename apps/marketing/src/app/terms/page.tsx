@@ -9,6 +9,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const dict = await getDictionary(await getLocale());
   return {
     title: dict.legal.nav.termsTitle,
+    description: dict.legal.nav.termsDescription,
     alternates: {
       canonical: "/terms",
       languages: { es: "/terms", en: "/terms", "x-default": "/terms" },

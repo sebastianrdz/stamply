@@ -102,7 +102,7 @@ export default async function Home() {
           <p className="text-muted-foreground mx-auto mt-4 max-w-xl text-lg text-balance">
             {landing.hero.subtitle}
           </p>
-          <div className="mt-8 flex justify-center gap-3">
+          <div className="mt-8 flex justify-center gap-3 flex-wrap">
             <Link
               href={`${appUrl}/register`}
               className={cn(buttonVariants({ size: "lg" }))}

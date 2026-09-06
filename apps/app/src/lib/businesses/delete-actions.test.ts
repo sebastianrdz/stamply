@@ -390,7 +390,7 @@ describe("deleteBusiness", () => {
     createAdminClientMock.mockReturnValue(admin);
 
     await expect(deleteBusiness({}, new FormData())).rejects.toThrow(
-      "NEXT_REDIRECT:/dashboard",
+      "NEXT_REDIRECT:/dashboard?deleted=1",
     );
 
     expect(cookieSetMock).toHaveBeenCalledWith(
@@ -398,7 +398,7 @@ describe("deleteBusiness", () => {
       "biz-2",
       expect.objectContaining({ path: "/" }),
     );
-    expect(redirect).toHaveBeenCalledWith("/dashboard");
+    expect(redirect).toHaveBeenCalledWith("/dashboard?deleted=1");
   });
 
   it("clears the cookie and redirects to /onboarding when the user has no other businesses", async () => {
@@ -412,10 +412,10 @@ describe("deleteBusiness", () => {
     createAdminClientMock.mockReturnValue(admin);
 
     await expect(deleteBusiness({}, new FormData())).rejects.toThrow(
-      "NEXT_REDIRECT:/onboarding",
+      "NEXT_REDIRECT:/onboarding?deleted=1",
     );
 
     expect(cookieDeleteMock).toHaveBeenCalledWith(ACTIVE_BUSINESS_COOKIE);
-    expect(redirect).toHaveBeenCalledWith("/onboarding");
+    expect(redirect).toHaveBeenCalledWith("/onboarding?deleted=1");
   });
 });

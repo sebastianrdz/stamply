@@ -12,6 +12,7 @@ import { Card, CardContent } from "@stamply/ui/card";
 import { Badge } from "@stamply/ui/badge";
 import { buttonVariants } from "@stamply/ui/button";
 import { cn } from "@stamply/ui/utils";
+import { ProgramsToastListener } from "./programs-toast-listener";
 import type { Program } from "@/types/database";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -33,6 +34,7 @@ export default async function ProgramsPage() {
 
   return (
     <>
+      <ProgramsToastListener />
       <PageHeader
         title={dict.dashboard.programs.list.title}
         description={dict.dashboard.programs.list.description}

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
+import Link from "next/link";
 import { Menu, User, LogOut } from "lucide-react";
 import { Logo } from "@stamply/ui/logo";
 import { Badge } from "@stamply/ui/badge";
@@ -44,7 +45,7 @@ function UserMenu({ role }: { role: MembershipRole }) {
         aria-expanded={open}
         aria-haspopup="menu"
         className={cn(
-          "text-muted-foreground hover:bg-muted hover:text-foreground grid size-9 place-items-center rounded-lg transition-colors",
+          "text-muted-foreground hover:bg-muted hover:text-foreground grid size-11 place-items-center rounded-lg transition-colors",
           open && "bg-muted text-foreground",
         )}
       >
@@ -99,12 +100,14 @@ export function DashboardHeader({ role }: { role: MembershipRole }) {
       <button
         onClick={toggle}
         aria-label={dict.nav.toggleSidebar}
-        className="text-muted-foreground hover:bg-muted hover:text-foreground grid size-9 place-items-center rounded-lg transition-colors"
+        className="text-muted-foreground hover:bg-muted hover:text-foreground grid size-11 place-items-center rounded-lg transition-colors"
       >
         <Menu className="size-5" />
       </button>
 
-      <Logo />
+      <Link href="/dashboard">
+        <Logo />
+      </Link>
 
       {/* Right: user menu */}
       <div className="ml-auto">

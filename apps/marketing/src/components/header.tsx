@@ -13,8 +13,10 @@ export async function Header() {
   const { landing } = dict;
 
   return (
-    <header className="flex items-center justify-between gap-4 px-6 py-4">
-      <Logo />
+    <header className="flex flex-wrap items-center justify-between gap-4 px-6 py-4">
+      <Link href="/">
+        <Logo />
+      </Link>
       <nav className="flex items-center gap-2">
         <LanguageSelector className="mr-1" />
         <Link

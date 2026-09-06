@@ -11,6 +11,7 @@ import { Button } from "@stamply/ui/button";
 import { cn } from "@stamply/ui/utils";
 import { getLocale } from "@stamply/i18n/locale";
 import { getDictionary } from "@stamply/i18n/dictionaries";
+import { BillingToastListener } from "./billing-toast-listener";
 import { PlanSelector } from "./plan-selector";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -48,6 +49,7 @@ export default async function BillingPage() {
 
   return (
     <>
+      <BillingToastListener />
       <PageHeader
         title={dict.dashboard.billing.title}
         description={dict.dashboard.billing.description}
